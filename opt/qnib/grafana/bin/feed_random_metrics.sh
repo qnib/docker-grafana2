@@ -5,7 +5,7 @@ SLEEP=${1-5}
 
 if [ "X${RANDOM_METRICS}" != "Xtrue" ];then
    echo "RANDOM_METRICS is not set to true, therefore I skip this"
-   return 0
+   exit 0
 fi
 
 while [ true ];do 
