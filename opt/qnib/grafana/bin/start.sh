@@ -15,12 +15,12 @@ fi
 DASH_TIME=$(date +"%F %H:%M:%S")
 for dash in $(find ${DASH_PATH} -name \*.json);do
     echo $dash
-    DASH_TITLE=$(jq '.title' $dash)
+    DASH_TITLE=$(jq '.title' $dash |sed -e 's/"//g')
     DASH_SLUG=$(echo $dash |awk -F/ '{print $NF}' | sed -e 's/\.json$//')
-    DASH_DATA=$(jq -c "." ${dash} |sed -e 's/"/\\"/g')
+    DASH_DATA=$(jq -c "." ${dash})
     sqlite3 ${DB_PATH} "INSERT INTO dashboard (created, updated, version, slug, title, org_id, data) VALUES ('${DASH_TIME}', '${DASH_TIME}', '0', '${DASH_SLUG}', '${DASH_TITLE}','1','${DASH_DATA}');"
 done
 
 
 sleep 2
-#/usr/sbin/grafana-server --pidfile=/var/run/grafana-server.pid --config=/etc/grafana/grafana.ini cfg:default.paths.data=/var/lib/grafana cfg:default.paths.logs=/var/log/grafana
+/usr/sbin/grafana-server --pidfile=/var/run/grafana-server.pid --config=/etc/grafana/grafana.ini cfg:default.paths.data=/var/lib/grafana cfg:default.paths.logs=/var/log/grafana
