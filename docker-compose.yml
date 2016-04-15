@@ -1,5 +1,5 @@
 consul:
-    image: gaikai/alpn-consul:supervisor
+    image: qnib/alpn-consul:supervisor
     hostname: consul
     container_name: consul
     ports:
