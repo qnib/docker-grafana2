@@ -1,5 +1,5 @@
 ###### QNIBTerminal Image
-FROM qnib/terminal
+FROM qnib/syslog
 
 ADD etc/yum.repos.d/grafana.repo /etc/yum.repos.d/
 RUN echo "2015-12-09.1" \ 
